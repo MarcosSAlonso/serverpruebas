@@ -4,14 +4,14 @@ import time
 def runScraper():
     with sync_playwright() as p:
         browser = p.chromium.launch(
-            headless=False,
+            headless=True,
             args=['--disable-blink-features=AutomationControlled']
         )
         
         page = browser.new_page()
         page.goto("https://www2.jus.gov.ar/dnrpa-site/#!/estimador")        
     
-        time.sleep(3)
+        time.sleep(2)
 
         resultados = request_info(page)
 
@@ -32,30 +32,30 @@ def request_info(page):
         provincia = "BUENOS AIRES"
 
         page.select_option("#codigoTramite", param)
-        time.sleep(3)
+        time.sleep(2)
 
         #Enviamos patente-dominio
         page.click("#dominio", force=True)
         time.sleep(1)
         page.fill("#dominio", '')
-        time.sleep(2)
+        time.sleep(1)
         page.fill("#dominio", patente)
 
         #Enviamos valor declarado
         page.click("#cuerpo > div.ng-scope > div > form > div:nth-child(3) > div:nth-child(1) > div > input", force=True)
         time.sleep(1)
         page.fill("#cuerpo > div.ng-scope > div > form > div:nth-child(3) > div:nth-child(1) > div > input", '')
-        time.sleep(2)
+        time.sleep(1)
         page.fill("#cuerpo > div.ng-scope > div > form > div:nth-child(3) > div:nth-child(1) > div > input", valor)
 
         #Seleccionamos provincia
-        time.sleep(3)
-        page.select_option("#codigoProvincia", provincia)
         time.sleep(2)
+        page.select_option("#codigoProvincia", provincia)
+        time.sleep(1)
 
         #Click continuar
         page.click("#cuerpo > div.ng-scope > div > form > div:nth-child(5) > button", force=True)
-        time.sleep(3)
+        time.sleep(2)
 
         #Guardamos lo obtenido
         Marca = page.inner_text("#cuerpo > div.ng-scope > div.panel.panel-info.ng-scope > div.panel-body > table > tbody > tr:nth-child(3) > td:nth-child(2)", timeout=5000)
