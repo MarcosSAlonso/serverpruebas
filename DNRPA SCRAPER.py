@@ -4,7 +4,7 @@ import time
 def runScraper():
     with sync_playwright() as p:
         browser = p.chromium.launch(
-            headless=True,
+            headless=False,
             args=['--disable-blink-features=AutomationControlled']
         )
         
@@ -66,5 +66,7 @@ def request_info(page):
 
     except Exception as e:
         print(f"Error obteniendo info de DNRPA: {e}")
+        page.screenshot(path="error_visor.png")
+        print("¡Foto tomada! Guardada como error_visor.png")
 
 runScraper()
