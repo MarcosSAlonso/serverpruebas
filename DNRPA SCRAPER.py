@@ -65,6 +65,6 @@ def request_info(page):
         return Marca, Modelo, Anio
 
     except Exception as e:
-        print("Error obteniendo info de DNRPA: {e}")
+        print(f"Error obteniendo info de DNRPA: {e}")
 
 runScraper()
