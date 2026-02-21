@@ -66,7 +66,9 @@ def request_info(page):
 
     except Exception as e:
         print(f"Error obteniendo info de DNRPA: {e}")
-        page.screenshot(path="error_visor.png")
-        print("¡Foto tomada! Guardada como error_visor.png")
+        print("Titulo pagina")
+        print(page.title())
+        print("texto pagina")
+        print(page.locator("body").inner_text()[:300])
 
 runScraper()
